@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" th:href="@{/static/bootstrap/bootstrap.css}" type="text/css" />
+<body>
+	<h3>欢迎来到主页</h3>
+    <!--Thymeleaf 语法取值-->
+    <!-- 第一种方法 -->
+ <p> 姓名：<input th:id="${user.username}" th:name="${user.username}" th:value="${user.username}"></p>
+ <p> 年龄：<input th:value="${user.age}"></p>
+ <p> 生日：<input th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}"></p>
+ <p> 性别：<input th:value="${user.sex}"></p>
+      <hr>
+     <!-- 第二种方法 -->
+     <div th:object="${user}">
+<p> 姓名：<input th:id="*{username}" th:name="*{username}" th:value="*{username}"></p>
+ <p> 年龄：<input th:value="*{age}"></p>
+ <p> 生日：<input th:value="*{#dates.format(birthday,'yyyy-MM-dd')}"></p>
+ <p> 性别：<input th:value="*{sex}"></p>
+      </div> 
+      
+    <h3>text与utext:  </h3>
+    <span th:text="${user.desc}">abc</span>
+    <br/>
+    <span th:utext="${user.desc}">abc</span>
+    <br/>
+    <br/>
+     <h3>url:  </h3>
+    <a href="" th:href="@{/user(username=${user.username})}">超链接</a>   
+    <br/>
+    <br/>
+    
+     <h3>表单提交:  </h3>
+    <form th:action="@{/postForm}"  method="Post" th:method="Post">
+    <input type="text" th:field="${user.username}" >
+    <input type="text" th:field="${user.sex}">
+    <input type="text" th:name="birthday" th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}">
+    <input type="text" th:field="${user.age}">
+    <input type="submit">
+    </form>
+    <br/>
+    <br/>
+    
+    <h3>判断:  </h3>
+     <div th:if="${user.age} eq 20">20岁的天空</div>
+    <div th:if="${user.age} gt 20">你老了</div>
+    <div th:if="${user.age} lt 20">很年轻</div>
+    <div th:if="${user.age} ge 20">大于等于</div>
+    <div th:if="${user.age} le 20">小于等于</div> 
+    <div th:if="${user.age} ne 10">不等于</div>
+    <br/>
+    
+    <h3>下拉框:  </h3>
+    <select>
+    <option > 全部</option>
+    <option th:selected="${user.username eq '张三'}"> 张三</option>
+    <option th:selected="${user.username eq '李四'}"> 李四</option>
+    <option th:selected="${user.username eq '王五'}"> 王五</option>
+    </select>
+     <br/>
+     
+      <h3>循环:  </h3>
+     <table>
+     <tr>
+     	<td>姓名</td>
+     	<td>性别</td>
+     	<td>年龄</td>
+     	<td>生日</td>
+     </tr>
+     <tr th:each="person:${userList}">
+     	<td th:text="${person.username}"></td>
+     	<td th:text="${person.sex}"></td>
+     	<td th:text="${person.age gt 20} ? 你老了 : 你很年轻"> 20岁 </td>
+     	<td th:text="${#dates.format(person.birthday,'yyyy-MM-dd hh:mm:ss')}"></td>
+     </tr>
+     </table>
+     
+      <br/>
+      <h3>switch case:  </h3>
+      <div th:switch="${user.username}">
+      	<p th:case="'张三'"> 普通用户</p>
+      	<p th:case="'李四'"> 普通管理员</p>
+      	<p th:case="王五"> 超级管理员</p>
+      	<p th:case="*"> 其他用户</p>
+      </div>
+</body>
+</html>
