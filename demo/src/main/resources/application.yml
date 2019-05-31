@@ -35,6 +35,16 @@ spring:
   resources:    static-locations:    - classpath:templates/
     - classpath:static/
     - classpath:public/
+#  #redis 配置
+#  redis:
+#    #指定要连接的redis数据库实例 -->16个 0-15
+#    database: 0
+#    #指定连接ip地址
+#    host: 10.1.7.202
+##    host: 172.20.10.2
+#    #端口
+#    port: 6379   
+#  #密码 未设置 默认为空  
 #mybatis 配置
 mybatis:
   #配置别名 

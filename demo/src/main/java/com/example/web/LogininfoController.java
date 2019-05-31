@@ -41,14 +41,15 @@ public class LogininfoController {
 		 //在查询调用方法前声明分页信息（当前页，每页记录数）
 	      //PageHelper.startPage(page, pageSize);这段代码表示，程序开始分页了，
 		 //page默认值是1，pageSize默认是10，意思是从第1页开始，每页显示10条记录。
-	      PageHelper.startPage(page, 2);
+	      PageHelper.startPage(page, 1);
 	      //查询
 	      List<Logininfo> logininfolist = logininfiService.queryAll();
 	      System.out.println(logininfolist);
 	      
 	      //在查询调用方法对查询结果进行包装成PageInfo对象
 	      //创建PageInfo对象，保存查询出的结果，PageInfo是pageHelper中的对象
-	      PageInfo<Logininfo> p=new PageInfo<Logininfo>(logininfolist);      
+	      PageInfo<Logininfo> p=new PageInfo<Logininfo>(logininfolist); 
+	      System.err.println(p.toString());
 	      //将数据存放到request域中
 	      session.setAttribute("page", p);
 	      session.setAttribute("logininfolist",logininfolist);
